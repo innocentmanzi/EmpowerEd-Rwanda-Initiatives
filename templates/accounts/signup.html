@@ -1,0 +1,213 @@
+{% extends "accounts/base.html" %}
+{% load static %}
+
+{% block title %}
+Sign Up | EmpowerEd.
+{% endblock title %}
+
+{% block content %}
+
+<main id="content" role="main" class="main pt-0">
+      <div class="container-fluid px-3">
+        <div class="row">
+          <div
+            class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center min-vh-lg-100 position-relative bg-light px-0">
+
+            <div class="position-absolute top-0 start-0 end-0 mt-3 mx-3">
+              <div class="d-none d-lg-flex justify-content-between">
+                <a href="{% url "signup" %}">
+                  <h2> EmpowerEd. </h2>
+                </a>
+              </div>
+            </div>
+
+            <div style="max-width: 23rem;">
+              <div class="text-center mb-5">
+                <img class="img-fluid"
+                  src="{% static 'assets/svg/illustrations/oc-chatting.svg' %}"
+                  alt="Image Description" style="width: 12rem;"
+                  data-hs-theme-appearance="default">
+                <img class="img-fluid"
+                  src="{% static 'assets/svg/illustrations-light/oc-chatting.svg' %}"
+                  alt="Image Description" style="width: 12rem;"
+                  data-hs-theme-appearance="dark">
+              </div>
+
+              <div class="mb-5">
+                <h2 class="display-5">
+                  EmpowerEd Rwanda Initiatives
+                </h2>
+              </div>
+
+              <ul
+                class="list-checked list-checked-lg list-checked-primary list-py-2">
+                <li class="list-checked-item">
+                  <span class="d-block fw-semibold mb-1">EmpowerEd</span>
+                  A comprehensive view of the entire coffee production process,
+                  from cultivation to consumption
+                </li>
+
+                <li class="list-checked-item">
+                  <span class="d-block fw-semibold mb-1">Rwanda Initiatives
+                  </span>
+                  Bringing the Journey of Coffee Beans to Your Screen
+                </li>
+              </ul>
+
+            </div>
+          </div>
+
+          <div
+            class="col-lg-6 d-flex justify-content-center align-items-center min-vh-lg-100">
+            <div
+              class="w-100 content-space-t-4 content-space-t-lg-2 content-space-b-1"
+              style="max-width: 25rem;">
+
+              <div class="text-center">
+                  <div class="mb-5">
+                    <h1 class="display-5">Sign Up to EmpowerEd</h1>
+                    <p>Already have an account?
+                      <a class="link"
+                        href="{% url 'login' %}">Sign in
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                {% include 'includes/alerts.html' %}
+
+              <form class="" method="POST" action="{% url "signup" %}">
+                {% csrf_token %}
+                <label class="form-label" for="fullNameSrEmail">
+                  Full name
+                </label>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="mb-2">
+                      <input type="text" class="form-control form-control-lg"
+                        name="first_name" id="fullNameSrEmail" placeholder="First name"
+                        aria-label="First name" required>
+                      <span class="invalid-feedback">
+                        Please enter your first name.
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="mb-2">
+                      <input type="text" class="form-control form-control-lg"
+                        name="last_name" placeholder="Last name" aria-label="Last name" required>
+                      <span class="invalid-feedback">
+                        Please enter your last name.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-2">
+                  <label class="form-label" for="signupSrEmail">
+                    Your email
+                  </label>
+                  <input type="email" class="form-control form-control-lg"
+                    name="email" id="signupSrEmail"
+                    placeholder="example@gmail.com"
+                    aria-label="example@gmail.com" required>
+                  <span class="invalid-feedback">
+                    Please enter a valid email address.
+                  </span>
+                </div>
+
+                <div class="mb-2">
+                  <label class="form-label" for="signupSrEmail">
+                    Phone number
+                  </label>
+                  <input type="text" class="form-control form-control-lg"
+                    name="phone"
+                    placeholder="078"
+                    required>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="mb-2">
+                      <label class="form-label" for="signupSrPassword">
+                    Password
+                  </label>
+
+                  <div class="input-group input-group-merge"
+                    data-hs-validation-validate-class>
+                    <input type="password"
+                      class="js-toggle-password form-control form-control-lg"
+                      name="password" id="signupSrPassword"
+                      placeholder="6+ characters required"
+                      aria-label="6+ characters required" required minlength="6"
+                      data-hs-toggle-password-options='{
+                           "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
+                           "defaultClass": "bi-eye-slash",
+                           "showClass": "bi-eye",
+                           "classChangeTarget": ".js-toggle-password-show-icon-1"
+                         }'>
+                    <a
+                      class="js-toggle-password-target-1 input-group-append input-group-text"
+                      href="javascript:;">
+                      <i class="js-toggle-password-show-icon-1 bi-eye"></i>
+                    </a>
+                  </div>
+
+                  <span class="invalid-feedback">
+                    Your password is invalid. Please try again.
+                  </span>
+                </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-4">
+                  <label class="form-label"
+                    for="signupSrConfirmPassword">Confirm password</label>
+
+                  <div class="input-group input-group-merge"
+                    data-hs-validation-validate-class>
+                    <input type="password" class="js-toggle-password form-control form-control-lg"
+                      name="confirm_password" id="signupSrConfirmPassword"
+                      placeholder="6+ characters required"
+                      aria-label="6+ characters required" required minlength="6"
+                      data-hs-toggle-password-options='{
+                           "target": [".js-toggle-password-target-1", ".js-toggle-password-target-2"],
+                           "defaultClass": "bi-eye-slash",
+                           "showClass": "bi-eye",
+                           "classChangeTarget": ".js-toggle-password-show-icon-2"
+                         }'>
+                    <a
+                      class="js-toggle-password-target-2 input-group-append input-group-text"
+                      href="javascript:;">
+                      <i class="js-toggle-password-show-icon-2 bi-eye"></i>
+                    </a>
+                  </div>
+
+                  <span class="invalid-feedback">
+                    Password does not match the confirm password.
+                  </span>
+                </div>
+                  </div>
+                </div>
+
+
+
+
+
+                {{ form.email.errors }}
+                    {{ form.non_field_errors }}
+
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+{% endblock content %}
+
+

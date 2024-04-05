@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Courses | EmpowerEd
+{% endblock %}
+
+{% load static %}
+{% block content %}
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Courses</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">Courses</h1>
+      </div>
+
+      <div class="col-auto">
+
+        {% if request.user.category != 'Student' %}
+          <a class="btn btn-primary" href="{% url 'create_course' %}">
+            <i class="bi-person-plus-fill me-1"></i>
+            Add Course
+          </a>
+        {% else %}
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mb-4" style="max-width: 40em">
+        <div class="input-group input-group-merge">
+          <input type="text" class="js-form-search form-control" placeholder="Search..."
+            data-hs-form-search-options='{"clearIcon": "#clearIconBasicEg"}'>
+          <button type="button" class="input-group-append input-group-text">
+            <i id="clearIconBasicEg" class="bi-x-lg" style="display: none;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {% for course in courses %}
+    <div class="col-lg-4 mb-3 mb-lg-5">
+      <div class="card">
+        <div class="card-pinned">
+          <a href="{% url 'course_detail' course.slug %}">
+            <img height="300" class="card-img-top" src="{{ course.image.url }}" alt="Image Description" />
+          </a>
+
+          <span class="card-pinned-top-start">
+            <span class="badge bg-danger rounded-pill">{{ course.course_category.title|capfirst }}</span>
+          </span>
+        </div>
+
+        <div class="card-body">
+          <h4 class="card-title">
+            <a class="text-dark" href="{% url 'course_detail' course.slug %}">
+              {{ course.title|capfirst }}
+            </a>
+          </h4>
+          <a class="card-link" href="{% url 'course_detail' course.slug %}" style="font-size: 13px;">
+            Open course
+            <i class="bi-chevron-right small ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

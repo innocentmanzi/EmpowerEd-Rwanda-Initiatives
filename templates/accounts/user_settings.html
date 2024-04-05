@@ -1,0 +1,326 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Settings | EmpowerEd
+{% endblock %}
+
+{% load static %}
+{% block content %}
+
+  <div class="page-header">
+        <div class="row align-items-end">
+          <div class="col-sm mb-2 mb-sm-0">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb breadcrumb-no-gutter">
+                <li class="breadcrumb-item">
+                  <a class="breadcrumb-link" href="{% url "dashboard" %}">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Settings</li>
+              </ol>
+            </nav>
+
+            <h1 class="page-header-title">Settings</h1>
+          </div>
+
+          <div class="col-sm-auto">
+            <a class="btn btn-primary" href="{% url "profile" %}">
+              <i class="bi-person-fill me-1"></i> My profile
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="navbar-expand-lg navbar-vertical mb-3 mb-lg-5">
+            <div class="d-grid">
+              <button type="button" class="navbar-toggler btn btn-white mb-3" data-bs-toggle="collapse" data-bs-target="#navbarVerticalNavMenu" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navbarVerticalNavMenu">
+                <span class="d-flex justify-content-between align-items-center">
+                  <span class="text-dark">Menu</span>
+
+                  <span class="navbar-toggler-default">
+                    <i class="bi-list"></i>
+                  </span>
+
+                  <span class="navbar-toggler-toggled">
+                    <i class="bi-x"></i>
+                  </span>
+                </span>
+              </button>
+            </div>
+
+            <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
+              <ul id="navbarSettings" class="js-sticky-block js-scrollspy card card-navbar-nav nav nav-tabs nav-lg nav-vertical" data-hs-sticky-block-options='{
+                     "parentSelector": "#navbarVerticalNavMenu",
+                     "targetSelector": "#header",
+                     "breakpoint": "lg",
+                     "startPoint": "#navbarVerticalNavMenu",
+                     "endPoint": "#stickyBlockEndPoint",
+                     "stickyOffsetTop": 20
+                   }'>
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url "settings" %}#content">
+                    <i class="bi-person nav-icon"></i> Basic information
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "settings" %}#emailSection">
+                    <i class="bi-at nav-icon"></i> Email
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "settings" %}#passwordSection">
+                    <i class="bi-key nav-icon"></i> Password
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url "settings" %}#deleteAccountSection">
+                    <i class="bi-trash nav-icon"></i> Delete account
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+          <div class="d-grid gap-3 gap-lg-5">
+            <div class="card">
+              <div class="profile-cover">
+                <div class="profile-cover-img-wrapper">
+                  <img id="profileCoverImg" class="profile-cover-img" src="{% static 'assets/img/1920x400/img2.jpg' %}" alt="Image Description">
+
+                  <div class="profile-cover-content profile-cover-uploader p-3">
+                    <input type="file" class="js-file-attach profile-cover-uploader-input" id="profileCoverUplaoder" data-hs-file-attach-options='{
+                      "textTarget": "#profileCoverImg",
+                      "mode": "image",
+                      "targetAttr": "src",
+                      "allowTypes": [".png", ".jpeg", ".jpg"]
+                    }'>
+                    <label class="profile-cover-uploader-label btn btn-sm btn-white" for="profileCoverUplaoder">
+                      <i class="bi-camera-fill"></i>
+                      <span class="d-none d-sm-inline-block ms-1">Upload header</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <label class="avatar avatar-xxl avatar-circle avatar-uploader profile-cover-avatar" for="editAvatarUploaderModal">
+                {% if user.image %}
+                <img id="editAvatarImgModal" class="avatar-img" src="{{ user.image.url }}" alt="Image Description">
+
+                {% else %}
+                <img id="editAvatarImgModal" class="avatar-img" src="{% static 'assets/img/user.png' %}" alt="Image Description">
+                {% endif %}
+
+
+                <input type="file" name="image" class="js-file-attach avatar-uploader-input" id="editAvatarUploaderModal" data-hs-file-attach-options='{
+                  "textTarget": "#editAvatarImgModal",
+                  "mode": "image",
+                  "targetAttr": "src",
+                  "allowTypes": [".png", ".jpeg", ".jpg"]
+                }'>
+
+                <span class="avatar-uploader-trigger">
+                  <i class="bi-pencil-fill avatar-uploader-icon shadow-sm"></i>
+                </span>
+              </label>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title h4">Basic information</h2>
+              </div>
+
+              <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="row mb-4">
+                    <label for="firstNameLabel" class="col-sm-3 col-form-label form-label">
+                      Full name
+                      {% comment %} <i class="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front."></i> {% endcomment %}
+                    </label>
+
+                    <div class="col-sm-9">
+                      <div class="input-group input-group-sm-vertical">
+                        <input type="text" class="form-control" name="first_name" id="firstNameLabel" placeholder="Your first name" aria-label="Your first name" value="{{ user.first_name }}">
+                        <input type="text" class="form-control" name="last_name" id="lastNameLabel" placeholder="Your last name" aria-label="Your last name" value="{{ user.last_name }}">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label for="emailLabel" class="col-sm-3 col-form-label form-label">Email</label>
+
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control" name="email" id="emailLabel" placeholder="Email" aria-label="Email" value="{{ user.email }}" disabled>
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label for="phoneLabel" class="col-sm-3 col-form-label form-label">Phone <span class="form-label-secondary">(Optional)</span></label>
+
+                    <div class="col-sm-9">
+                      <input type="text" class="js-input-mask form-control" name="phone" id="phoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" value="{{ user.phone }}" data-hs-mask-options='{"mask": "+0(000)000-00-00"}'>
+                    </div>
+                  </div>
+
+                  {% comment %} <div class="row mb-4">
+                    <label for="organizationLabel" class="col-sm-3 col-form-label form-label">Organization</label>
+
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="organization" id="organizationLabel" placeholder="Your organization" aria-label="Your organization" value="Htmlstream">
+                    </div>
+                  </div> {% endcomment %}
+
+                  {% comment %} <div class="row mb-4">
+                    <label for="departmentLabel" class="col-sm-3 col-form-label form-label">Department</label>
+
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="department" id="departmentLabel" placeholder="Your department" aria-label="Your department">
+                    </div>
+                  </div> {% endcomment %}
+
+                  {% comment %} <div id="accountType" class="row mb-4">
+                    <label class="col-sm-3 col-form-label form-label">Account type</label>
+
+                    <div class="col-sm-9">
+                      <div class="input-group input-group-sm-vertical">
+
+                        <label class="form-control" for="userAccountTypeRadio1">
+                          <span class="form-check">
+                            <input type="radio" class="form-check-input" name="userAccountTypeRadio" id="userAccountTypeRadio1" checked>
+                            <span class="form-check-label">Individual</span>
+                          </span>
+                        </label>
+
+                        <label class="form-control" for="userAccountTypeRadio2">
+                          <span class="form-check">
+                            <input type="radio" class="form-check-input" name="userAccountTypeRadio" id="userAccountTypeRadio2">
+                            <span class="form-check-label">Company</span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div> {% endcomment %}
+
+                  {% comment %} <div class="row mb-4">
+                    <label for="addressLine1Label" class="col-sm-3 col-form-label form-label">Address line 1</label>
+
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="addressLine1" id="addressLine1Label" placeholder="Your address" aria-label="Your address" value="45 Roker Terrace, Latheronwheel">
+                    </div>
+                  </div> {% endcomment %}
+
+
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div id="emailSection" class="card">
+              <div class="card-header">
+                <h4 class="card-title">Email</h4>
+              </div>
+
+              <div class="card-body">
+                <p>Your current email address is <span class="fw-semibold">mark@site.com</span></p>
+
+                <form>
+                  <div class="row mb-4">
+                    <label for="newEmailLabel" class="col-sm-3 col-form-label form-label">New email address</label>
+
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control" name="newEmail" id="newEmailLabel" placeholder="Enter new email address" aria-label="Enter new email address">
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div id="passwordSection" class="card">
+              <div class="card-header">
+                <h4 class="card-title">Change your password</h4>
+              </div>
+
+              <div class="card-body">
+                <form id="changePasswordForm">
+                  <div class="row mb-4">
+                    <label for="currentPasswordLabel" class="col-sm-3 col-form-label form-label">Current password</label>
+
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control" name="currentPassword" id="currentPasswordLabel" placeholder="Enter current password" aria-label="Enter current password">
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label for="newPassword" class="col-sm-3 col-form-label form-label">New password</label>
+
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Enter new password" aria-label="Enter new password">
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label for="confirmNewPasswordLabel" class="col-sm-3 col-form-label form-label">Confirm new password</label>
+
+                    <div class="col-sm-9">
+                      <div class="mb-3">
+                        <input type="password" class="form-control" name="confirmNewPassword" id="confirmNewPasswordLabel" placeholder="Confirm your new password" aria-label="Confirm your new password">
+                      </div>
+
+                      <h5>Password requirements:</h5>
+
+                      <p class="fs-6 mb-2">Ensure that these requirements are met:</p>
+
+                      <ul class="fs-6">
+                        <li>Minimum 8 characters long - the more, the better</li>
+                        <li>At least one lowercase character</li>
+                        <li>At least one uppercase character</li>
+                        <li>At least one number, symbol, or whitespace character</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div id="deleteAccountSection" class="card">
+              <div class="card-header">
+                <h4 class="card-title">Delete your account</h4>
+              </div>
+
+              <div class="card-body">
+                <p class="card-text">When you delete your account, you lose access to Front account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
+
+                <div class="mb-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="deleteAccountCheckbox">
+                    <label class="form-check-label" for="deleteAccountCheckbox">
+                      Confirm that I want to delete my account.
+                    </label>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-3">
+                  <a class="btn btn-white" href="">Learn more</a>
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="stickyBlockEndPoint"></div>
+        </div>
+      </div>
+
+{% endblock %}

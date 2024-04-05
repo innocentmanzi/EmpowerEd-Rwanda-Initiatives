@@ -1,0 +1,93 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Training | {{ training.title|upper }} | EmpowerEd
+{% endblock %}
+
+{% load static %}
+{% block content %}
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'trainings' %}">Trainings</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ training.title|capfirst }}</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">{{ training.title|capfirst }}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    {% comment %} {{ message }} {% endcomment %}
+    <div class="col-md-4 mb-4">
+      <img class="mb-2 img-fluid" src="{{ training.image.url }}" />
+      <span class="text-highlight-primary fw-bold">
+        <i class="bi-calendar"></i>
+        {{ training.date }}
+      </span>
+      <br />
+      <form action="{% url 'training_detail' training.slug %}" method="POST">
+        {% csrf_token %}
+        {% comment %} {% for training_enrolled %} {% endcomment %}
+          {% if training_enrolled %}
+            <button class="card-link btn btn-outline-primary mt-3">Enrolled</button>
+          {% else %}
+            <button id="enroll-btn-{{ training.slug }}" class="card-link btn btn-outline-primary mt-3">Enroll</button>
+          {% endif %}
+        {% comment %} {% endfor %} {% endcomment %}
+      </form>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <h3>{{ training.title|capfirst }}</h3>
+
+      <p>{{ training.description|safe|capfirst|truncatechars:410 }}</p>
+
+      <div class="d-flex">
+        <div>
+          <h3>Start date</h3>
+          <span>{{ training.start_date }}</span>
+        </div>
+        <div class="ms-auto">
+          <h3>End date</h3>
+          <span>{{ training.end_date }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <p>{{ training.description|safe|capfirst }}</p>
+    </div>
+  </div>
+{% endblock %}
+
+<script>
+  $(document).ready(function () {
+    $('#enroll-btn-{{ training.slug }}').click(function () {
+      var trainingId = $(this).attr('slug').split('-')[2] // Extract training ID
+
+      $.ajax({
+        url: '{% url "enroll_training" training.slug %}', // Dynamic URL construction
+        type: 'POST', // Use POST for enrollment
+        success: function (data) {
+          $('#enroll-btn-' + trainingId).text('Enrolled') // Update button text
+          // Optional: Display success message from response
+          console.log(data.message) // Log success/error message
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error(textStatus + ' - ' + errorThrown)
+          // Handle errors appropriately (e.g., display error message)
+        }
+      })
+    })
+  })
+</script>

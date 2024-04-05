@@ -1,0 +1,142 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Course| {{ category.title|upper }} | EmpowerEd
+{% endblock %}
+
+{% load static %}
+{% block content %}
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ category.title|capfirst }}</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">{{ category.title|capfirst }}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="">
+      <ul class="nav nav-segment nav-pills mb-4" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="jobs-tab" href="#jobs" data-bs-toggle="pill" data-bs-target="#jobs" role="tab" aria-controls="jobs" aria-selected="true">Jobs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="courses-tab" href="#courses" data-bs-toggle="pill" data-bs-target="#courses" role="tab" aria-controls="courses" aria-selected="false">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="trainings-tab" href="#trainings" data-bs-toggle="pill" data-bs-target="#trainings" role="tab" aria-controls="trainings" aria-selected="false">Trainings</a>
+        </li>
+      </ul>
+    </div>
+    <!-- End Nav -->
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="jobs" role="tabpanel" aria-labelledby="jobs-tab">
+        <div class="row">
+          {% for job in jobs %}
+            <div class="col-lg-4 mb-3 mb-lg-5">
+              <div class="card">
+                <div class="card-body">
+                  <a href="{% url 'institute_detail' %}">
+                    <div class="d-flex gap-2 mb-4">
+                      <img class="img-fluid" width="50" height="50" style="border-radius: 100%;" src="{% static 'assets/img/160x160/img4.jpg' %}" />
+                      <p class="mt-3">{{ job.user.full_name }}</p>
+                    </div>
+                  </a>
+                  <div class="d-flex">
+                    <span class="card-subtitle">
+                      <i class="bi-briefcase" style="margin-right: 0.5em;"></i>
+                      {{ job.location }}
+                    </span>
+                    <span class="card-subtitle ms-auto">
+                      <ul class="list-inline">
+                        <li class="list-inline-item d-inline-flex align-items-center">
+                          <span class="legend-indicator bg-success"></span>
+                          {{ job.remaining_days }}
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                  <h4 class="card-title mb-3" style="margin-top: -0.8em"><a href="{% url 'job_detail' job.slug %}">{{ job.title|capfirst }}</a></h4>
+                  <div class="d-flex">
+                    <div>
+                      <a href="{% url 'job_detail' job.slug %}" class="link-primary">Read more</a>
+                    </div>
+                    <div class="ms-auto">
+                      <p>
+                        {{ job.num_applications }}
+                        <i class="bi-people"></i>
+                        Applied
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <p>No jobs available matching this category ({{ category.title|capfirst }})</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">
+        <div class="row">
+          {% for course in courses %}
+            <div class="col-lg-4 mb-3 mb-lg-5">
+              <div class="card">
+                <div class="card-pinned">
+                  <a href="{% url 'course_detail' course.slug %}"><img height="300" class="card-img-top" src="{{ course.image.url }}" alt="Image Description" /></a>
+
+                  <span class="card-pinned-top-start"><span class="badge bg-danger rounded-pill">{{ course.course_category.title|capfirst }}</span></span>
+                </div>
+
+                <div class="card-body">
+                  <h4 class="card-title"><a class="text-dark" href="{% url 'course_detail' course.slug %}">{{ course.title|capfirst }}</a></h4>
+                  <a class="card-link" href="{% url 'course_detail' course.slug %}" style="font-size: 13px;">
+                    Open course
+                    <i class="bi-chevron-right small ms-1"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <p>No courses available matching this category ({{ category.title|capfirst }})</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="trainings" role="tabpanel" aria-labelledby="trainings-tab">
+        <div class="row">
+          {% for training in trainings %}
+            <div class="col-lg-6 mb-3 mb-lg-5">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex mb-1">
+                    <span class="card-subtitle">{{ training.user.full_name }}</span>
+                    <span class="card-subtitle ms-auto">{{ training.duration }}</span>
+                  </div>
+                  <h3 class="card-title">{{ training.title|capfirst }}</h3>
+
+                  <p class="card-text">{{ training.description|safe|capfirst|truncatechars:355 }}</p>
+                  <a href="{% url 'training_detail' training.slug %}" class="card-link btn btn-outline-primary mt-3">Read more</a>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <p>No trainings available matching this category ({{ category.title|capfirst }})</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

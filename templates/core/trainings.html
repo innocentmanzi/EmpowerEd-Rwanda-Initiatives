@@ -1,0 +1,87 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Trainings | EmpowerEd
+{% endblock %}
+
+{% load static %}
+{% block content %}
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Trainings</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">Trainings</h1>
+      </div>
+
+      <div class="col-auto">
+        {% if request.user.category != 'Student' %}
+          <a class="btn btn-primary" href="{% url 'create_training' %}">
+            <i class="bi bi-award me-1"></i>
+            Create a Training
+          </a>
+        {% else %}
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mb-4" style="max-width: 40em">
+        <div class="input-group input-group-merge">
+          <input type="text" class="js-form-search form-control" placeholder="Search..."
+            data-hs-form-search-options='{"clearIcon": "#clearIconBasicEg"}'>
+          <button type="button" class="input-group-append input-group-text">
+            <i id="clearIconBasicEg" class="bi-x-lg" style="display: none;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {% for training in trainings %}
+    <div class="col-lg-6 mb-3 mb-lg-5">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex mb-1">
+            <span class="card-subtitle">{{ training.user.full_name }}</span>
+            <span class="card-subtitle ms-auto">{{ training.duration }}</span>
+          </div>
+          <h3 class="card-title"> {{ training.title|capfirst }} </h3>
+
+          <p class="card-text">
+            {{ training.description|safe|capfirst|truncatechars:355 }}
+          </p>
+
+          {% comment %} <div class="collapse mb-2" id="collapseBrand">
+            {% with sliced_description=training.description|safe|slice:"255:" %}
+              {% if sliced_description|length > 255 %}
+                {{ sliced_description|truncatechars:255 }}
+              {% else %}
+                {{ sliced_description }}
+              {% endif %}
+            {% endwith %}
+          </div>
+
+          <a class="link-sm link-collapse" href="#collapseBrand" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseBrand">
+            <span class="link-collapse-default link-primary">Read more</span>
+            <span class="link-collapse-active link-primary">Read less</span>
+          </a>
+          <br /> {% endcomment %}
+          {% comment %} <a class="card-link btn btn-outline-primary mt-3">Enroll</a> {% endcomment %}
+          <a href="{% url 'training_detail' training.slug %}" class="card-link btn btn-outline-primary mt-3">Read more</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+{% endblock %}

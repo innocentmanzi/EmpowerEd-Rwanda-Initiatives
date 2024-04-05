@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% block title %}
+  Create Training | EmpowerEd
+{% endblock %}
+{% load static %}
+
+{% block content %}
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Create training</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">Create a new training</h1>
+      </div>
+
+      {% comment %}
+      <div class="col-auto">
+        <a class="btn btn-primary" href="javascript:;" data-bs-toggle="modal" data-bs-target="#inviteUserModal"><i class="bi-person-plus-fill me-1"></i> Add Course</a>
+      </div>
+      {% endcomment %}
+    </div>
+  </div>
+
+  <div class="row">
+    <p>Create a training here</p>
+
+    <div class="card" style="max-width: 700px">
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-success">Create Training</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

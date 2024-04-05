@@ -1,0 +1,68 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block title %}
+  Verify your email | EmpowerEd.
+{% endblock %}
+
+{% block content %}
+  <main id="content" role="main" class="main pt-0">
+    <div class="container-fluid px-3">
+      <div class="row">
+        <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center min-vh-lg-100 position-relative bg-light px-0">
+          <div class="position-absolute top-0 start-0 end-0 mt-3 mx-3">
+            <div class="d-none d-lg-flex justify-content-between">
+              <a href="{% url 'login' %}"><h2>EmpowerEd.</h2></a>
+            </div>
+          </div>
+
+          <div style="max-width: 23rem;">
+            <div class="text-center mb-5">
+              <img class="img-fluid" src="{% static 'assets/svg/illustrations/oc-chatting.svg' %}" alt="Image Description" style="width: 12rem;" data-hs-theme-appearance="default" />
+              <img class="img-fluid" src="{% static 'assets/svg/illustrations-light/oc-chatting.svg' %}" alt="Image Description" style="width: 12rem;" data-hs-theme-appearance="dark" />
+            </div>
+
+            <div class="mb-5">
+              <h2 class="display-5">EmpowerEd Rwanda Initiatives</h2>
+            </div>
+
+            <ul class="list-checked list-checked-lg list-checked-primary list-py-2">
+              <li class="list-checked-item">
+                <span class="d-block fw-semibold mb-1">EmpowerEd</span>
+                A comprehensive view of the entire coffee production process, from cultivation to consumption
+              </li>
+
+              <li class="list-checked-item">
+                <span class="d-block fw-semibold mb-1">Rwanda Initiatives</span>
+                Bringing the Journey of Coffee Beans to Your Screen
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-6 d-flex justify-content-center align-items-center min-vh-lg-100">
+          <div class="w-100 content-space-t-4 content-space-t-lg-2 content-space-b-1" style="max-width: 25rem;">
+            <div class="text-center">
+              <div class="mb-4">
+                <img class="avatar avatar-xxl avatar-4x3" src="{% static 'assets/svg/illustrations/oc-email-verification.svg' %}" alt="Image Description" data-hs-theme-appearance="default" />
+                <img class="avatar avatar-xxl avatar-4x3" src="{% static 'assets/svg/illustrations-light/oc-email-verification.svg' %}" alt="Image Description" data-hs-theme-appearance="dark" />
+              </div>
+
+              <h1 class="display-5">Verify your email</h1>
+
+              <p class="mb-1">We've sent a link to your email address, Please follow the link inside to continue</p>
+
+              <div class="mt-4 mb-3">
+                <a class="btn btn-primary" href="{% url 'login' %}">Skip now</a>
+              </div>
+
+              {% comment %} <p>
+                Didn't receive an email? <a href="authentication-email-verification-cover.html#">Resend</a>
+              </p> {% endcomment %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

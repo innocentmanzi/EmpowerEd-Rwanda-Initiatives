@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+{% block title %}
+  Create Job | EmpowerEd
+{% endblock %}
+{% load static %}
+
+{% block content %}
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Create job</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">Pos a new job</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <p>Post a new job here</p>
+
+    <div class="card" style="max-width: 700px">
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-success">Post job</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

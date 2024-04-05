@@ -1,0 +1,309 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Profile | EmpowerEd
+{% endblock %}
+
+{% load static %}
+{% block content %}
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Profile</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">Profile</h1>
+      </div>
+
+      <div class="col-auto">
+        <a class="btn btn-primary" href="{% url 'settings' %}"><i class="bi-person-plus-fill me-1"></i> Update Profile</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-lg-center">
+    <div class="col-lg-12">
+      <div class="profile-cover">
+        <div class="profile-cover-img-wrapper">
+          <img class="profile-cover-img" src="{% static 'assets/img/1920x400/img1.jpg' %}" alt="Image" data-hs-theme-appearance="default" />
+          <img class="profile-cover-img" src="{% static 'assets/img/1920x400/img2.jpg' %}" alt="Image" data-hs-theme-appearance="dark" />
+        </div>
+      </div>
+
+      <div class="text-center mb-5">
+        <div class="avatar avatar-xxl avatar-circle profile-cover-avatar">
+          {% if request.user.image %}
+            <img class="avatar-img" src="{{ user.image.url }}" alt="Image Description" />
+          {% else %}
+            <img class="avatar-img" src="{% static 'assets/img/user.png' %}" alt="Image Description" />
+          {% endif %}
+          <span class="avatar-status avatar-status-success"></span>
+        </div>
+
+        <h1 class="page-header-title">
+          {{ user.full_name|capfirst }}
+          <i class="bi-patch-check-fill fs-2 text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Top endorsed"></i>
+        </h1>
+
+        <ul class="list-inline list-px-2">
+          <li class="list-inline-item">
+            <i class="bi-briefcase me-1"></i>
+            <span>status</span>
+          </li>
+
+          <li class="list-inline-item">
+            <i class="bi-geo-alt me-1"></i>
+            <span>Kigali, Rwanda</span>
+          </li>
+
+          <li class="list-inline-item">
+            <i class="bi-calendar-week me-1"></i>
+            <span>{{ user.date }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="">
+        <ul class="nav nav-segment nav-pills mb-7" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="profile-tab" href="#profile" data-bs-toggle="pill" data-bs-target="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="courses-tab" href="#courses" data-bs-toggle="pill" data-bs-target="#courses" role="tab" aria-controls="courses" aria-selected="false">Courses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="trainings-tab" href="#trainings" data-bs-toggle="pill" data-bs-target="#trainings" role="tab" aria-controls="trainings" aria-selected="false">Trainings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="certificates-tab" href="#certificates" data-bs-toggle="pill" data-bs-target="#certificates" role="tab" aria-controls="certificates" aria-selected="false">Certificates</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card mb-3 mb-lg-5">
+                <div class="card-header card-header-content-between">
+                  <h4 class="card-header-title">Profile</h4>
+                </div>
+
+                <div class="card-body">
+                  <ul class="list-unstyled list-py-2 text-dark mb-0">
+                    <li class="pb-0">
+                      <span class="card-subtitle">About</span>
+                    </li>
+                    <li>
+                      <i class="bi-person dropdown-item-icon"></i> {{ user.full_name|capfirst }}
+                    </li>
+                    <li>
+                      <i class="bi-briefcase dropdown-item-icon"></i> No department
+                    </li>
+                    <li>
+                      <i class="bi-building dropdown-item-icon"></i> Pixeel Ltd.
+                    </li>
+
+                    <li class="pt-4 pb-0">
+                      <span class="card-subtitle">Contacts</span>
+                    </li>
+                    <li>
+                      <i class="bi-at dropdown-item-icon"></i> {{ user.email }}
+                    </li>
+                    <li>
+                      <i class="bi-phone dropdown-item-icon"></i> {{ user.phone }}
+                    </li>
+
+                    {% comment %} <li class="pt-4 pb-0">
+                      <span class="card-subtitle">Teams</span>
+                    </li>
+                    <li class="fs-6 text-body">
+                      <i class="bi-people dropdown-item-icon"></i> You are not a member of any teams
+                    </li>
+                    <li class="fs-6 text-body">
+                      <i class="bi-stickies dropdown-item-icon"></i> You are not working on any projects
+                    </li> {% endcomment %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-8">
+              <div class="card card-centered mb-3 mb-lg-5">
+                <div class="card-header card-header-content-between mb-3">
+                  <h4 class="card-header-title">Certificates</h4>
+                </div>
+
+                <div class="row mx-2">
+                  <div class="col-lg-6 mb-3 mb-lg-5">
+                    <div class="card">
+                      <div class="card-body">
+                        <img class="img-fluid" width="80" height="80" style="border-radius: 100%;" src="{% static 'assets/img/160x160/img4.jpg' %}" />
+                        <p class="mt-3">Front-end developer - Institute</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 mb-3 mb-lg-5">
+                    <div class="card">
+                      <div class="card-body">
+                        <img class="img-fluid" width="80" height="80" style="border-radius: 100%;" src="{% static 'assets/img/160x160/img4.jpg' %}" />
+                        <p class="mt-3">Back-end developer - Institute</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 mb-3 mb-lg-5">
+                    <div class="card">
+                      <div class="card-body">
+                        <img class="img-fluid" width="80" height="80" style="border-radius: 100%;" src="{% static 'assets/img/160x160/img4.jpg' %}" />
+                        <p class="mt-3">Back-end developer - Institute</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card mb-3 mb-lg-5">
+                <div class="card-header card-header-content-between">
+                  <h4 class="card-header-title">Skills & Interest</h4>
+                </div>
+
+                <div class="card-body card-body-height">
+                  <div class="d-flex flex-wrap gap-2">
+                    <p class="btn btn-white btn-sm">Start your Projects</p>
+                    <p class="btn btn-white btn-sm">Start your Projects</p>
+                    <p class="btn btn-white btn-sm">Start your Projects</p>
+                    <p class="btn btn-white btn-sm">Start your Projects</p>
+                    <p class="btn btn-white btn-sm">Start your Projects</p>
+                    <p class="btn btn-white btn-sm">Start your Projects</p>
+                    <p class="btn btn-white btn-sm">Start your Projects</p>
+                    <p class="btn btn-white btn-sm">Start your Projects</p>
+                    <p class="btn btn-white btn-sm">Start your Projects</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">
+          <div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis necessitatibus repudiandae quisquam obcaecati itaque similique totam unde blanditiis maiores rem.</p>
+          </div>
+          <div class="row">
+            {% for course in courses %}
+              <div class="col-lg-4 mb-3 mb-lg-5">
+                <div class="card">
+                  <div class="card-pinned">
+                    <a href="{% url 'course_detail' course.slug %}"><img height="300" class="card-img-top" src="{{ course.image.url }}" alt="Image Description" /></a>
+
+                    <span class="card-pinned-top-start"><span class="badge bg-danger rounded-pill">{{ course.course_category.title|capfirst }}</span></span>
+                  </div>
+
+                  <div class="card-body">
+                    <h4 class="card-title"><a class="text-dark" href="{% url 'course_detail' course.slug %}">{{ course.title|capfirst }}</a></h4>
+                    <a class="card-link" href="{% url 'course_detail' course.slug %}" style="font-size: 13px;">
+                      Open course
+                      <i class="bi-chevron-right small ms-1"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="trainings" role="tabpanel" aria-labelledby="trainings-tab">
+          <div class="row align-items-center mb-5">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis necessitatibus repudiandae quisquam obcaecati itaque similique totam unde blanditiis maiores rem.</p>
+
+            {% for training in trainings %}
+              <div class="col-lg-6 mb-3 mb-lg-5">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex mb-1">
+                      <span class="card-subtitle">{{ training.user.full_name }}</span>
+                      <span class="card-subtitle ms-auto">{{ training.duration }}</span>
+                    </div>
+                    <h3 class="card-title">{{ training.title|capfirst }}</h3>
+
+                    <p class="card-text">{{ training.description|safe|capfirst|truncatechars:355 }}</p>
+                    <a href="{% url 'training_detail' training.slug %}" class="card-link btn btn-outline-primary mt-3">Read more</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+            {% for training_enrolled in trainings_enrolled %}
+              <div class="col-lg-6 mb-3 mb-lg-5">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex mb-1">
+                      <span class="card-subtitle">{{ training_enrolled.training.training_category.title|capfirst }}</span>
+                      <span class="card-subtitle ms-auto">Duration: {{ training_enrolled.training.duration }}</span>
+                    </div>
+                    <h3 class="card-title">{{ training_enrolled.training.title|capfirst }}</h3>
+
+                    <p class="card-text">{{ training_enrolled.training.description|safe|capfirst|truncatechars:355 }}</p>
+
+                    {% comment %} <div class="collapse mb-2" id="collapseBrand">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+
+                    <a class="link-sm link-collapse" href="#collapseBrand" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseBrand">
+                      <span class="link-collapse-default link-primary">Read more</span>
+                      <span class="link-collapse-active link-primary">Read less</span>
+                    </a>
+                    <br /> {% endcomment %}
+                    {% if training_enrolled.student == request.user %}
+                      <button class="card-link btn btn-outline-primary mt-3">Enrolled</button>
+                    {% endif %}
+
+                    <a href="{% url 'training_detail' training_enrolled.training.slug %}" class="card-link btn btn-outline-primary mt-3">Read more</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="certificates" role="tabpanel" aria-labelledby="certificates-tab">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis necessitatibus repudiandae quisquam obcaecati itaque similique totam unde blanditiis maiores rem.</p>
+          <div class="row">
+            <div class="col-lg-4 mb-3 mb-lg-5">
+              <div class="card card-centered">
+                <div class="card-body">
+                  <img class="img-fluid" width="80" height="80" style="border-radius: 100%;" src="{% static 'assets/img/160x160/img4.jpg' %}" />
+                  <p class="mt-3">Front-end developer - Institute</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mb-3 mb-lg-5">
+              <div class="card card-centered">
+                <div class="card-body">
+                  <img class="img-fluid" width="80" height="80" style="border-radius: 100%;" src="{% static 'assets/img/160x160/img4.jpg' %}" />
+                  <p class="mt-3">Back-end developer - Institute</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mb-3 mb-lg-5">
+              <div class="card card-centered">
+                <div class="card-body">
+                  <img class="img-fluid" width="80" height="80" style="border-radius: 100%;" src="{% static 'assets/img/160x160/img4.jpg' %}" />
+                  <p class="mt-3">Back-end developer - Institute</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

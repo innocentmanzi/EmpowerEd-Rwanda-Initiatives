@@ -1,0 +1,118 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Course| {{ course.title|upper }} | EmpowerEd
+{% endblock %}
+
+{% load static %}
+{% block content %}
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'courses' %}">Courses</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ course.title|capfirst }}</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">{{ course.title|capfirst }}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <img class="img-fluid" width="500" height="100" src="{{ course.image.url }}" alt="{{ course.title }}" srcset="" />
+    </div>
+
+    <div class="col-md-6">
+      <h3 class="mt-2">{{ course.title|capfirst }}</h3>
+
+      <p>{{ course.description|safe|capfirst }}</p>
+
+      <span>
+        <i class="bi-calendar"></i>
+        {{ course.date }}
+      </span>
+
+      <br />
+      <br />
+
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseStep">Vertically centered modal</button>
+
+      <div id="courseStep" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="courseStepTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="courseStepTitle">Your course learning steps<p class="text-muted">Ex: Introduction, Installation, basics, etc...</p></h5>
+
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Submit</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+              {% comment %} <button type="button" class="btn btn-primary">Save changes</button> {% endcomment %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="">
+      <ul class="nav nav-segment nav-pills mb-2" role="tablist">
+        {% for c_step in course_step %}
+          <li class="nav-item">
+            <a class="nav-link" id="course-step-{{ c_step.id }}-tab" href="#course-step-{{ c_step.id }}" data-bs-toggle="pill" data-bs-target="#course-step-{{ c_step.id }}" role="tab" aria-controls="course-step-{{ c_step.id }}" aria-selected="true">{{ c_step.title|capfirst }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="tab-content">
+      {% for c_step in course_step %}
+        <div class="tab-pane fade" id="course-step-{{ c_step.id }}" role="tabpanel" aria-labelledby="course-step-{{ c_step.id }}-tab">
+          <p>{{ c_step.description|safe|capfirst }}</p>
+          {% if c_step.course.user.id != request.user.id %}
+
+          {% else %}
+
+          <form action="{% url 'add_course_step_video' c_step.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" class="btn btn-primary btn-sm" name="video" value="Browse files" />
+
+            <button type="submit" class="btn btn-primary btn-sm" style="margin-left: 2em;">Add Video</button>
+          </form>
+          {% endif %}
+
+          {% comment %} <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseStepVideo">Add Video</button> {% endcomment %}
+
+          <div class="row mt-4">
+            {% for c_step_video in course_step_videos %}
+              {% if c_step_video.course_step.id == c_step.id %}
+                <div class="col-md-4">
+                  <video class="object-fit-fill" width="100%" height="100%" controls>
+                    <source src="{{ c_step_video.video.url }}" type="video/mp4" />
+                  </video>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

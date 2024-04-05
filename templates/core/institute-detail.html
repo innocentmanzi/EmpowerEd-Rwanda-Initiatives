@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Institute | Institute detail | EmpowerEd
+{% endblock %}
+
+{% load static %}
+{% block content %}
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col-sm mb-2 mb-sm-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-no-gutter">
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a class="breadcrumb-link" href="{% url 'institutes' %}">Institutes</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Institute name</li>
+          </ol>
+        </nav>
+
+        <h1 class="page-header-title">Institute name</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3"></div>
+{% endblock %}
