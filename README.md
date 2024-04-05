@@ -19,7 +19,20 @@ My project (EmpowerEd Rwanda Initiatives) targeted people located in Rwanda's lo
 1. clone the repository:
    git clone: https://github.com/innocentmanzi/EmpowerEd-Rwanda-Initiatives.git
 
- 2.   
+ 2. Navigate to the project directory:
+    cd EmpowerEd-Rwanda-Initiatives
+
+3. Create Environment:
+   python -m venv environment_name
+
+4. Activate environment:
+    source environment_name/scripts/activate
+   
+6. Install dependencies:
+    Install requirements: pip install -r requirements.txt
+
+7. Runserver:
+   python manage.py runserver   
 
 
 
