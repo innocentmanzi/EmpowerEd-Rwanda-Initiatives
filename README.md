@@ -17,7 +17,9 @@ My project (EmpowerEd Rwanda Initiatives) targeted people located in Rwanda's lo
 
 # Installation
 1. clone the repository:
-   git clone: (https://github.com/innocentmanzi/EmpowerEd-Rwanda-Initiatives.git)
+   git clone: https://github.com/innocentmanzi/EmpowerEd-Rwanda-Initiatives.git
+
+ 2.   
 
 
 
