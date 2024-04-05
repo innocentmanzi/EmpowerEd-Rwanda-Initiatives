@@ -12,7 +12,7 @@ My project (EmpowerEd Rwanda Initiatives) targeted people located in Rwanda's lo
 
 .  Training:  Users will be enrolled in the required training to get the materials to complete the training.
 
-.  Jobs:  contains the section of job application where the user will apply for the job that matches his/her interest after the admin has added the job related to the fields.
+.  Jobs:  contains the job application section where the user will apply for the job that matches his/her interest after the admin has added the job related to the fields.
 
 # Installation
 
@@ -23,12 +23,12 @@ My project (EmpowerEd Rwanda Initiatives) targeted people located in Rwanda's lo
 
 
 # Contributing
-
-
+Please follow the general Contribution Guidelines if you want to contribute to this project.
 
 # License
+This project is licensed under the M.I.T. License - see the LICENSE file for more details.
 
-
+# Contact
 
 # Credits
 
