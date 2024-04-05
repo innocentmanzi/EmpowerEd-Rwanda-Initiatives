@@ -29,7 +29,7 @@ My project (EmpowerEd Rwanda Initiatives) targeted people located in Rwanda's lo
     source environment_name/scripts/activate
    
 6. Install dependencies:
-    Install requirements: pip install -r requirements.txt
+   pip install -r requirements.txt
 
 7. Runserver:
    python manage.py runserver   
