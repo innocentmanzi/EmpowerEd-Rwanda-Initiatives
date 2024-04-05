@@ -16,6 +16,8 @@ My project (EmpowerEd Rwanda Initiatives) targeted people located in Rwanda's lo
 .  Jobs:  contains the job application section where the user will apply for the job that matches his/her interest after the admin has added the job related to the fields.
 
 # Installation
+1. clone the repository:
+   git clone: (https://github.com/innocentmanzi/EmpowerEd-Rwanda-Initiatives.git)
 
 
 
