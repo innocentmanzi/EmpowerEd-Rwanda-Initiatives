@@ -235,6 +235,7 @@
                     <h3 class="card-title">{{ training.title|capfirst }}</h3>
 
                     <p class="card-text">{{ training.description|safe|capfirst|truncatechars:355 }}</p>
+
                     <a href="{% url 'training_detail' training.slug %}" class="card-link btn btn-outline-primary mt-3">Read more</a>
                   </div>
                 </div>

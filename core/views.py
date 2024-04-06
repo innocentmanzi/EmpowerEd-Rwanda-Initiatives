@@ -201,8 +201,10 @@ def create_training(request):
 @login_required(login_url='login')
 def trainings(request):
     trainings = Trainings.objects.all().order_by('-date')
+    training_enrolled = TrainingEnrollment.objects.filter(student=request.user)
     context = {
         'trainings': trainings,
+        'training_enrolled': training_enrolled,
     }
     template_name = 'core/trainings.html'
     return render(request, template_name, context)

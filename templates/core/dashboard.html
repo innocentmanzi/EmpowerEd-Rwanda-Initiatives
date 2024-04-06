@@ -19,7 +19,7 @@
       </div>
 
     <div class="col-auto">
-      {% if request.user.category != 'Student' %}
+      {% if request.user.is_admin %}
       <a
         class="btn btn-primary"
         href="javascript:;"
@@ -37,7 +37,7 @@
 
 <div class="row">
   <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
-    <a class="card card-hover-shadow h-100" href="">
+    <a class="card card-hover-shadow h-100" href="{% url 'profile' %}">
       <div class="card-body">
         <h6 class="card-subtitle mb-4">Job Applications</h6>
 
@@ -69,7 +69,7 @@
   </div>
 
   <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
-    <a class="card card-hover-shadow h-100" href="{% url "institutes" %}">
+    <a class="card card-hover-shadow h-100" href="{% url "trainings" %}">
       <div class="card-body">
         <h6 class="card-subtitle mb-4">My Trainings</h6>
         <div class="row align-items-center gx-2 mb-1">
@@ -238,7 +238,8 @@
   </div>
 </div>
 
-<div class="card mb-3 mb-lg-5">
+
+{% comment %} <div class="card mb-3 mb-lg-5">
   <!-- Header -->
   <div class="card-header">
     <div class="row justify-content-between align-items-center flex-grow-1">
@@ -1053,6 +1054,6 @@
     <!-- End Pagination -->
   </div>
   <!-- End Footer -->
-</div>
+</div> {% endcomment %}
 
 {% endblock content %}

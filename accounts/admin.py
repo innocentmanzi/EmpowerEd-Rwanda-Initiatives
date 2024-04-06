@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import User
+from .models import User, Category
+
+# @admin.register(Category)
+# class CategoryModelAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'date')
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):

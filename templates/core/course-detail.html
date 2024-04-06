@@ -44,7 +44,9 @@
       <br />
       <br />
 
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseStep">Vertically centered modal</button>
+      {% if course.user == request.user %}
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseStep">Add more steps</button>
+      {% endif %}
 
       <div id="courseStep" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="courseStepTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -86,28 +88,28 @@
       {% for c_step in course_step %}
         <div class="tab-pane fade" id="course-step-{{ c_step.id }}" role="tabpanel" aria-labelledby="course-step-{{ c_step.id }}-tab">
           <p>{{ c_step.description|safe|capfirst }}</p>
-          {% if c_step.course.user.id != request.user.id %}
 
-          {% else %}
+          {% if c_step.course.user == user %}
+            <form action="{% url 'add_course_step_video' c_step.id %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="file" class="btn btn-primary btn-sm" name="video" value="Browse files" />
 
-          <form action="{% url 'add_course_step_video' c_step.id %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="file" class="btn btn-primary btn-sm" name="video" value="Browse files" />
-
-            <button type="submit" class="btn btn-primary btn-sm" style="margin-left: 2em;">Add Video</button>
-          </form>
+              <button type="submit" class="btn btn-primary btn-sm" style="margin-left: 2em;">Add Video</button>
+            </form>
           {% endif %}
 
           {% comment %} <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseStepVideo">Add Video</button> {% endcomment %}
 
           <div class="row mt-4">
             {% for c_step_video in course_step_videos %}
+            {% if c_step_video %}
               {% if c_step_video.course_step.id == c_step.id %}
                 <div class="col-md-4">
                   <video class="object-fit-fill" width="100%" height="100%" controls>
                     <source src="{{ c_step_video.video.url }}" type="video/mp4" />
                   </video>
                 </div>
+              {% endif %}
               {% endif %}
             {% endfor %}
           </div>

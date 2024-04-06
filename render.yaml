@@ -1,0 +1,10 @@
+services:
+  - name: web
+    buildCommand: python manage.py collectstatic --no-input
+    environment:
+      DJANGO_SETTINGS_MODULE: empowered_rw.settings
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+    startCommand: gunicorn empowered_rw.wsgi --bind 0.0.0.0:8000
+    healthCheckPath: "/admin"

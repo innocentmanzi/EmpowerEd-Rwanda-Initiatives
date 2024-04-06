@@ -1,6 +1,7 @@
 from pathlib import Path
 from django.contrib.messages import constants as messages
 import environ
+import dj_database_url
 import os
 
 env = environ.Env(
@@ -14,13 +15,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # False if not in os.environ because of casting above
-DEBUG = env('DEBUG')
+DEBUG = os.environ.get('DEBUG', 'False') == "True"
 
 # Raises Django's ImproperlyConfigured
 # exception if SECRET_KEY not in os.environ
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(" ")
 
 
 # Application definition
@@ -87,6 +90,13 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Get database URL from environment variable
+# DATABASE_URL = os.environ.get('DATABASE_URL')
+
+# DATABASES = {
+#     'default': dj_database_url.parse(DATABASE_URL)
+# }
 
 AUTH_USER_MODEL = 'accounts.User'
 

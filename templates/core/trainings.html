@@ -76,7 +76,14 @@
             <span class="link-collapse-active link-primary">Read less</span>
           </a>
           <br /> {% endcomment %}
+
+          {% for training_en in training_enrolled %}
+          {% if training_en.training.slug == training.slug %}
+          <button class="card-link btn btn-outline-primary mt-3">Enrolled</button>
+          {% else %}
           {% comment %} <a class="card-link btn btn-outline-primary mt-3">Enroll</a> {% endcomment %}
+          {% endif %}
+          {% endfor %}
           <a href="{% url 'training_detail' training.slug %}" class="card-link btn btn-outline-primary mt-3">Read more</a>
         </div>
       </div>
