@@ -16,6 +16,23 @@ My project (EmpowerEd Rwanda Initiatives) targeted people located in Rwanda's lo
 .  Jobs:  contains the job application section where the user will apply for the job that matches his/her interest after the admin has added the job related to the fields.
 
 # Installation
+1. clone the repository:
+   git clone: https://github.com/innocentmanzi/EmpowerEd-Rwanda-Initiatives.git
+
+ 2. Navigate to the project directory:
+    cd EmpowerEd-Rwanda-Initiatives
+
+3. Create Environment:
+   python -m venv environment_name
+
+4. Activate environment:
+    source environment_name/scripts/activate
+   
+6. Install dependencies:
+   pip install -r requirements.txt
+
+7. Runserver:
+   python manage.py runserver   
 
 
 
