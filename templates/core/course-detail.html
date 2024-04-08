@@ -102,14 +102,12 @@
 
           <div class="row mt-4">
             {% for c_step_video in course_step_videos %}
-            {% if c_step_video %}
               {% if c_step_video.course_step.id == c_step.id %}
                 <div class="col-md-4">
                   <video class="object-fit-fill" width="100%" height="100%" controls>
                     <source src="{{ c_step_video.video.url }}" type="video/mp4" />
                   </video>
                 </div>
-              {% endif %}
               {% endif %}
             {% endfor %}
           </div>
