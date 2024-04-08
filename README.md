@@ -34,7 +34,7 @@ My project (EmpowerEd Rwanda Initiatives) targeted people located in Rwanda's lo
 7. Runserver:
    python manage.py runserver
 
-   Open your browser and visit [EmowerEd Rwanda Initiatives](https://empowered-rwanda-initiatives.onrender.com/) to access the EmpowerEd Rwanda Initiatives platform.
+   Open your browser and visit [EmpowerEd Rwanda Initiatives](https://empowered-rwanda-initiatives.onrender.com/) to access the EmpowerEd Rwanda Initiatives platform.
 
 
 
